@@ -2,10 +2,33 @@
 name = "agent-config"
 version = "0.2.0"
 description = "CLI tool for deploying and managing AI coding agent configurations (MCP servers, skills, instructions) across multiple providers."
-authors = [{name = "Christian Celso Bewzenko"}]
+authors = [{name = "Christian Celso Bewzenko", email = "crisbewz@gmail.com"}]
 requires-python = ">=3.8"
 dependencies = []
 readme = "README.md"
+license = {text = "MIT"}
+keywords = ["agents", "mcp", "llm", "cli", "configuration", "copilot", "claude", "cursor"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/chrisbewz/agent-config"
+Repository = "https://github.com/chrisbewz/agent-config"
+Issues = "https://github.com/chrisbewz/agent-config/issues"
+Changelog = "https://github.com/chrisbewz/agent-config/releases"
 
 [project.scripts]
 agent-config = "agent_config:main"

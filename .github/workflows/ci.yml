@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Smoke test (${{ matrix.os }} / Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.8", "3.10", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package
+        run: pip install .
+
+      - name: Verify --version
+        run: agent-config --version
+
+      - name: Verify --help
+        run: agent-config --help
+
+      - name: Smoke test init
+        shell: bash
+        run: |
+          mkdir -p /tmp/test-init
+          agent-config init --dir /tmp/test-init
+          test -f /tmp/test-init/manifest.json
+          test -f /tmp/test-init/agents.json
+          test -f /tmp/test-init/mcp_providers.json
+          test -f /tmp/test-init/justfile
+          echo "init smoke test passed"
