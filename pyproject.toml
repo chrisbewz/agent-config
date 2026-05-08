@@ -1,0 +1,17 @@
+[project]
+name = "agent-config"
+version = "0.2.0"
+description = "CLI tool for deploying and managing AI coding agent configurations (MCP servers, skills, instructions) across multiple providers."
+authors = [{name = "Christian Celso Bewzenko"}]
+requires-python = ">=3.8"
+dependencies = []
+readme = "README.md"
+
+[project.scripts]
+agent-config = "agent_config:main"
+
+[tool.setuptools]
+py-modules = ["agent_config"]
+
+[tool.setuptools.packages.find]
+exclude = ["memory", "skills"]
