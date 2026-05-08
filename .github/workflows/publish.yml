@@ -55,13 +55,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Bump formula version
-        uses: mislav/bump-homebrew-formula@v3
+      - name: Checkout tap
+        uses: actions/checkout@v4
         with:
-          formula-name: agent-config
-          formula-path: Formula/agent-config.rb
-          homebrew-tap: chrisbewz/homebrew-tap
-          tag-name: ${{ github.ref_name }}
-          download-url: https://github.com/chrisbewz/agent-config/archive/refs/tags/${{ github.ref_name }}.tar.gz
+          repository: chrisbewz/homebrew-tap
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          path: homebrew-tap
+
+      - name: Compute sha256 and update formula
         env:
-          COMMITTER_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          URL="https://github.com/chrisbewz/agent-config/archive/refs/tags/${TAG}.tar.gz"
+          SHA=$(curl -sL "$URL" | sha256sum | awk '{print $1}')
+          VERSION="${TAG#v}"
+          FORMULA="homebrew-tap/Formula/agent-config.rb"
+
+          sed -i "s|url \".*\"|url \"${URL}\"|" "$FORMULA"
+          sed -i "s|sha256 \".*\"|sha256 \"${SHA}\"|" "$FORMULA"
+
+          echo "Updated formula to ${VERSION} (sha256: ${SHA})"
+          cat "$FORMULA"
+
+      - name: Commit and push formula update
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          cd homebrew-tap
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/agent-config.rb
+          git commit -m "chore: update agent-config formula to ${TAG}"
+          git push
+
