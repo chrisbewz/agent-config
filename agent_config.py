@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import List, Optional
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 
 def normalize_filter_value(value: str) -> str:
