@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 VERSION = "0.2.0"
 
@@ -65,7 +65,7 @@ def _pre_parse_config_dir() -> Path:
     return Path(env_dir).resolve() if env_dir else Path.cwd().resolve()
 
 
-def copy_directory(source: Path, destination: Path, exclude: set | None = None) -> int:
+def copy_directory(source: Path, destination: Path, exclude: Optional[set] = None) -> int:
     item_count = 0
     destination.mkdir(parents=True, exist_ok=True)
     for item in source.iterdir():
@@ -84,7 +84,7 @@ def copy_directory(source: Path, destination: Path, exclude: set | None = None) 
 
 def run_skills_cli_entry(
     entry: dict,
-    agents_override: List[str] | None,
+    agents_override: Optional[List[str]],
     dry_run: bool,
     log_path: Path,
     manifest_dir: Path,
