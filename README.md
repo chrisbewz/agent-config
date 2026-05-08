@@ -8,15 +8,14 @@ Keep your configs in version control. Run `agent-config deploy` to push them to 
 
 ## Install
 
-```powershell
-# Requires Python 3.8+ and uv (https://docs.astral.sh/uv)
-uv tool install .
+```sh
+pip install agentcfg
 ```
 
-Or run without installing:
+Or with uv:
 
-```powershell
-uv run agent_config.py <command>
+```sh
+uv tool install agentcfg
 ```
 
 ## Quick Start

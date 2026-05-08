@@ -1,5 +1,5 @@
 [project]
-name = "agent-config"
+name = "agentcfg"
 version = "0.2.0"
 description = "CLI tool for deploying and managing AI coding agent configurations (MCP servers, skills, instructions) across multiple providers."
 authors = [{name = "Christian Celso Bewzenko", email = "crisbewz@gmail.com"}]
